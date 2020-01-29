@@ -1,0 +1,12 @@
+#!/usr/bin/python
+import os, sys, datetime
+
+if len(sys.argv) < 2:
+   print('duh')
+   sys.exit(-1)
+   pass
+timestamp=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+kh0 = open('/Users/ntai/.ssh/known_hosts', 'r').read().splitlines()
+os.rename('/Users/ntai/.ssh/known_hosts', '/Users/ntai/.ssh/known_hosts.%s' % timestamp)
+offender = int(sys.argv[1])
+open('/Users/ntai/.ssh/known_hosts', 'w').write('\n'.join(kh0[0:offender-1] + kh0[offender:]))
