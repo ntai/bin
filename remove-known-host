@@ -6,7 +6,9 @@ if len(sys.argv) < 2:
    sys.exit(-1)
    pass
 timestamp=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-kh0 = open('/Users/ntai/.ssh/known_hosts', 'r').read().splitlines()
-os.rename('/Users/ntai/.ssh/known_hosts', '/Users/ntai/.ssh/known_hosts.%s' % timestamp)
+known_hosts_path = os.path.join( os.getenv('HOME'), '.ssh/known_hosts')
+
+kh0 = open(known_hosts_path, 'r').read().splitlines()
+os.rename(known_hosts_path, known_hosts_path + ('.%s' % timestamp))
 offender = int(sys.argv[1])
-open('/Users/ntai/.ssh/known_hosts', 'w').write('\n'.join(kh0[0:offender-1] + kh0[offender:]))
+open(known_hosts_path, 'w').write('\n'.join(kh0[0:offender-1] + kh0[offender:]))
